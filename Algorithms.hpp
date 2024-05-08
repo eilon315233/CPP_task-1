@@ -22,9 +22,6 @@ namespace ariel
                 static string negativeCycle(Graph graph); // Check if the graph contains a negative cycle
 
                 static void dfs(Graph graph, size_t vertex, vector<bool>& visited); // Depth First Search
-                static bool dfsBipartite(Graph graph, size_t u, vector<size_t>& color);
-                static bool dfsCycle(Graph graph, size_t vertex, vector<bool>& visited, vector<size_t>& path); // Depth First Search for cycle
-
                 static bool isCyclicUtil(size_t vertex, vector<bool>& visited, vector<bool>& recStack, vector<size_t >& parent, const Graph graph, vector<size_t>& cycle); // Check if the graph contains a cycle
          };
                

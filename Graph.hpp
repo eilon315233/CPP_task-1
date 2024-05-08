@@ -24,8 +24,6 @@ namespace ariel
         
         size_t getNumberOfEdges(); // Get the number of edges in the graph.
 
-        bool isWeighted(); // Check if the graph is weighted.
-
         int getWeight(int start, int end); // Get the weight of an edge.
 
         vector<size_t> getNeighbors(size_t vertex); // Get the neighbors of a vertex.
@@ -36,7 +34,6 @@ namespace ariel
 
         vector<vector<int>> getMatrix() const {return adjacencyMatrix;} // Get the adjacency matrix of the graph.(inlined)
         
-        bool haveNegativeWeight(); // Check if the graph have negative weight.
 
         vector<pair<int,pair<int, int>>> getEdges() const; // Get the edges of the graph.(inlined)
 

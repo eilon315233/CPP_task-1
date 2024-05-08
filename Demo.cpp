@@ -3,7 +3,7 @@
 
 #include "Graph.hpp"
 #include "Algorithms.hpp"
-using ariel::Algorithms;
+using namespace ariel;
 
 #include <iostream>
 #include <stdexcept>

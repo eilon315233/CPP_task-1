@@ -3,31 +3,35 @@
 
 
 #include "Graph.hpp"
-#include <iostream>
 
 using namespace ariel;
 using namespace std;
 
-void Graph::loadGraph(vector<vector<int>> adjMatrix) {
-    if (adjMatrix.empty()) {
-        throw invalid_argument("The graph is empty, please enter a new graph.");
-    }
+// Load the graph to the object.
+void Graph::loadGraph(vector<vector<int>> adjMatrix) 
+{
+    // Check if the graph is empty.
+    if (adjMatrix.empty()) { throw invalid_argument("The graph is empty, please enter a new graph."); } 
 
+    // Check if the graph is a square matrix.
     int size = adjMatrix.size();
-    for (const auto& row : adjMatrix) {
+    for (const auto& row : adjMatrix) 
+    {
         if (row.size() != size) {
             throw std::invalid_argument("Invalid graph: The graph is not a square matrix.");
         }
     }
 
+    //load the graph and check if it is directed
     this->adjacencyMatrix = adjMatrix;
     this->directed = isDirected();
 }
 
-void Graph::printGraph() {
-
+// Print the number of vertices and edges in the graph and the graph itself.
+void Graph::printGraph() 
+{
+    // Print the graph itself.
     cout << "Graph: " << endl;
-
     for (size_t i = 0; i < adjacencyMatrix.size(); ++i) {
         cout << "{";
         for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) {
@@ -41,13 +45,20 @@ void Graph::printGraph() {
         cout << endl;
     }
 
+    // Print the number of vertices and edges in the graph.
     cout << "Graph with " << adjacencyMatrix.size() << " vertices and " << getNumberOfEdges() << " edges." << endl;
 }
 
-bool Graph::isDirected() {
-    for (size_t i = 0; i < adjacencyMatrix.size(); ++i) {
-        for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) {
-            if (adjacencyMatrix[i][j] != 0 && adjacencyMatrix[j][i] == 0) {
+// Check if the graph is directed.
+bool Graph::isDirected() 
+{
+    // Check if the graph is directed by checking if the adjacency matrix is symmetric.
+    for (size_t i = 0; i < adjacencyMatrix.size(); ++i) 
+    {
+        for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) 
+        {
+            if (adjacencyMatrix[i][j] != 0 && adjacencyMatrix[j][i] == 0) 
+            {
                 return true;
             }
         }
@@ -55,12 +66,17 @@ bool Graph::isDirected() {
     return false;
 }
 
-size_t Graph::getNumberOfEdges() {
+// Get the number of edges in the graph.
+size_t Graph::getNumberOfEdges() 
+{
     size_t countOfEdge = 0;
 
-    for (size_t i = 0; i < adjacencyMatrix.size(); ++i) {
-        for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) {
-            if (adjacencyMatrix[i][j] != 0) {
+    for (size_t i = 0; i < adjacencyMatrix.size(); ++i) 
+    {
+        for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) 
+        {
+            if (adjacencyMatrix[i][j] != 0) // Check if there is an edge between two vertices.
+            {
                 countOfEdge++;
             }
         }
@@ -68,51 +84,37 @@ size_t Graph::getNumberOfEdges() {
     return countOfEdge;
 }
 
-bool Graph::isWeighted() {
-    for (size_t i = 0; i < adjacencyMatrix.size(); ++i) {
-        for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) {
-            if (adjacencyMatrix[i][j] != 0) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool Graph::haveNegativeWeight() {
-    for (size_t i = 0; i < adjacencyMatrix.size(); ++i) {
-        for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) {
-            if (adjacencyMatrix[i][j] < 0) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-vector<size_t> Graph::getNeighbors(size_t vertex) {
+// Get the neighbors of a vertex.
+vector<size_t> Graph::getNeighbors(size_t vertex) 
+{
     vector<size_t> neighbors;
-    for (size_t i = 0; i < adjacencyMatrix[vertex].size(); ++i) {
-        if (adjacencyMatrix[vertex][i] != 0) {
+    for (size_t i = 0; i < adjacencyMatrix[vertex].size(); ++i) 
+    {
+        if (adjacencyMatrix[vertex][i] != 0) // Check if there is an edge between two vertices.
+        {
             neighbors.push_back(i);
         }
     }
     return neighbors;
 }
 
-size_t Graph::getNumberOfVertices() {
-    return adjacencyMatrix.size();
-}
+// Get the number of nodes in the graph.
+size_t Graph::getNumberOfVertices() { return adjacencyMatrix.size();}
 
-int Graph::getWeight(int start, int end) {
-    if (start < 0 || static_cast<size_t>(start) >= adjacencyMatrix.size() || end < 0 || static_cast<size_t>(end) >= adjacencyMatrix.size()) {
+// Get the weight of an edge.
+int Graph::getWeight(int start, int end) 
+{
+    // Check if the node index is out of range.
+    if (start < 0 || static_cast<size_t>(start) >= adjacencyMatrix.size() || end < 0 || static_cast<size_t>(end) >= adjacencyMatrix.size()) 
+    {
         throw std::out_of_range("Node index out of range");
     }
-    return adjacencyMatrix[static_cast<size_t>(start)][static_cast<size_t>(end)];
+    return adjacencyMatrix[static_cast<size_t>(start)][static_cast<size_t>(end)]; // Return the weight of the edge. 
 }
 
+// this function return the edges of the graph
 vector<pair<int,pair<int, int>>> Graph::getEdges() const {
-    std::vector<std::pair<int, std::pair<int, int>>> edges;
+    vector<pair<int,pair<int, int>>> edges;
     for (size_t i = 0; i < adjacencyMatrix.size(); ++i) {
         for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) {
             if (adjacencyMatrix[i][j] != 0) {

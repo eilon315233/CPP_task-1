@@ -2,20 +2,16 @@
 // Email: eilonashwal30@gmail.com
 
 #include "Algorithms.hpp"
-#include <vector>
-#include <iostream>
-#include "Graph.hpp"
 #include <queue>
 #include <limits>
-#include <stdexcept>
 #include <climits>
 #include <algorithm>
-#include <unordered_set>
 
 
 using namespace ariel;
 using namespace std;
 
+// Perform a depth-first search (DFS) traversal of the graph starting from the given vertex
 void Algorithms::dfs(Graph graph, size_t vertex, vector<bool>& visited)
 {
     // Mark the current vertex as visited
@@ -59,63 +55,85 @@ bool Algorithms::isConnected(Graph graph)
     return true;
 }
 
+// Check if the graph is bipartite and return the result
+string Algorithms::isBipartite(Graph grp) 
+{
 
-string Algorithms::isBipartite(Graph grp) {
-    size_t numNodes = grp.getNumberOfVertices();
-    std::vector<int> colorArr(numNodes, -1);
-    std::vector<size_t> setA, setB;
+    size_t numNodes = grp.getNumberOfVertices(); // Get the number of nodes in the graph
+    vector<int> colorArr(numNodes, -1); // Initialize all nodes as not colored
+    vector<size_t> setA, setB; // Initialize the two sets A and B  to store the nodes
 
-    for (size_t i = 0; i < numNodes; i++) {
-        if (colorArr[i] == -1) {
-            std::queue<size_t> q;
+    for (size_t i = 0; i < numNodes; i++) 
+    {
+        if (colorArr[i] == -1) // If the node is not colored
+         {
+            queue<size_t> q; // Initialize a queue to store the nodes
             q.push(i);
-            colorArr[i] = 1;
-            while (!q.empty()) {
-                size_t u = q.front();
-                q.pop();
-                std::vector<size_t> neighbors = grp.getNeighbors(u);
-                for (size_t v: neighbors) {
-                    if (colorArr[v] == -1) {
-                        colorArr[v] = 1 - colorArr[u];
-                        q.push(v);
-                    } else if (colorArr[v] == colorArr[u]) {
-//                        std::cout << "0" << std::endl;
-                        return "0";
+            colorArr[i] = 1; // Color the node with color 1
+
+            while (!q.empty()) 
+            {
+                size_t u = q.front(); // Get the first node in the queue
+                q.pop(); // Remove the first node from the queue
+                vector<size_t> neighbors = grp.getNeighbors(u); // Get the neighbors of the current node
+
+                for (size_t v: neighbors)  // Loop through the neighbors of the current node
+                {
+                    if (colorArr[v] == -1) // If the neighbor is not colored
+                    {
+                        colorArr[v] = 1 - colorArr[u]; // Color the neighbor with the opposite color of the current node
+                        q.push(v); 
+                    } 
+                    else if (colorArr[v] == colorArr[u]) // If the neighbor has the same color as the current node
+                    {
+                        return "0"; // The graph is not bipartite
                     }
                 }
             }
         }
     }
 
-    for (size_t i = 0; i < numNodes; i++) {
-        if (colorArr[i] == 1) {
+    // The graph is bipartite and we need to store the nodes in the two sets A and B
+    for (size_t i = 0; i < numNodes; i++) // Loop through all the nodes
+    {
+        if (colorArr[i] == 1) // If the node is colored with color 1
+        {
             setA.push_back(i);
-        } else {
+        } 
+        else // If the node is colored with color 0
+        {
             setB.push_back(i);
         }
     }
 
-    std::string result = "The graph is bipartite: A={";
-    for (size_t i = 0; i < setA.size(); i++) {
+    // Create a string representation of the two sets A and B
+    string result = "The graph is bipartite: A={";
+    for (size_t i = 0; i < setA.size(); i++) 
+    {
         result += std::to_string(setA[i]);
-        if (i != setA.size() - 1) {
+        if (i != setA.size() - 1) 
+        {
             result += ", ";
         }
     }
+
     result += "}, B={";
-    for (size_t i = 0; i < setB.size(); i++) {
+    for (size_t i = 0; i < setB.size(); i++) 
+    {
         result += std::to_string(setB[i]);
-        if (i != setB.size() - 1) {
+        if (i != setB.size() - 1) 
+        {
             result += ", ";
         }
     }
     result += "}";
-//    std::cout << result << std::endl;
-    return result;
+
+    return result; // Return the result string representation of the two sets A and B
 }
 
-
-string Algorithms::shortestPath(Graph grp, size_t start, size_t end) {
+// the function return the shortest path between two nodes in the graph
+string Algorithms::shortestPath(Graph grp, size_t start, size_t end) 
+{
     size_t numNodes = grp.getNumberOfVertices();
     vector<int> dist(numNodes, numeric_limits<int>::max());
     vector<size_t> pred(numNodes, numeric_limits<size_t>::max());
@@ -237,31 +255,6 @@ bool Algorithms::isContainsCycle(Graph graph)
     return false;
 }
 
-bool Algorithms::dfsCycle(Graph graph, size_t vertex, vector<bool>& visited, vector<size_t>& path)
-{
-    visited[vertex] = true;
-    path.push_back(vertex);
-
-    vector<size_t> neighbors = graph.getNeighbors(vertex);
-    for (size_t neighbor : neighbors)
-    {
-        if (!visited[neighbor])
-        {
-            if (dfsCycle(graph, neighbor, visited, path))
-            {
-                return true;
-            }
-        }
-        else if (find(path.begin(), path.end(), neighbor) != path.end())
-        {
-            // Found a back edge, indicating a cycle
-            return true;
-        }
-    }
-    
-    path.pop_back(); // Remove the current vertex from the path
-    return false;
-}
 
 string Algorithms::negativeCycle(Graph graph)
 {
