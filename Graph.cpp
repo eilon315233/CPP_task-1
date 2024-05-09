@@ -65,7 +65,7 @@ bool Graph::isDirected()
     {
         for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) 
         {
-            if (adjacencyMatrix[i][j] != adjacencyMatrix[j][i]) 
+            if (adjacencyMatrix[i][j] != adjacencyMatrix[j][i])
             {
                 return true;
             }
