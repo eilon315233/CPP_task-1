@@ -1,9 +1,6 @@
 # ID: 315233486
 # Email: eilonashwal30@gmail.com
 
-# This is a simple Makefile for compiling the project.
-#!make -f
-
 CXX=g++
 CXXFLAGS=-std=c++11 -Werror -Wsign-conversion
 VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
