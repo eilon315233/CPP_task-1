@@ -20,7 +20,7 @@ int main()
         {0, 1, 0}};
     g.loadGraph(graph); // Load the graph to the object.
 
-    g.printGraph();                                    // Should print: "Graph with 3 vertices and 4 edges."
+    g.printGraph();                                    // Should print: "Graph with 3 vertices and 2 edges, is not directed."
     cout << Algorithms::isConnected(g) << endl;        // Should print: "1" (true).
     cout << Algorithms::shortestPath(g, 0, 2) << endl; // Should print: 0->1->2.
     cout << Algorithms::isContainsCycle(g) <<endl;    // Should print: "0" (false).
@@ -37,7 +37,7 @@ int main()
 
     g.loadGraph(graph2); // Load the graph to the object.
 
-    g.printGraph();                                    // Should print: "Graph with 5 vertices and 8 edges."
+    g.printGraph();                                    // Should print: "Graph with 5 vertices and 4 edges, is not directed."
     cout << Algorithms::isConnected(g) << endl;        // Should print: "0" (false).
     cout << Algorithms::shortestPath(g, 0, 4) << endl; // Should print: "-1" (there is no path between 0 and 4).
     cout << Algorithms::isContainsCycle(g) << endl;    // Should print: "The cycle is: 0->1->2->0".
@@ -46,16 +46,16 @@ int main()
 
     // 5x5 matrix that reprsents a connected weighted graph.
     vector<vector<int>> graph3 = {
-        {0, 1, 2, 0, 0},
+        {0, 1, 0, 0, 0},
         {1, 0, 3, 0, 0},
-        {2, 3, 0, 4, 0},
+        {0, 3, 0, 4, 0},
         {0, 0, 4, 0, 5},
         {0, 0, 0, 5, 0}};
     g.loadGraph(graph3); // Load the graph to the object.
 
-    g.printGraph();                                    // Should print: "Graph with 5 vertices and 10 edges."
+    g.printGraph();                                    // Should print: "Graph with 5 vertices and 4 edges, is not directed."
     cout << Algorithms::isConnected(g) << endl;        // Should print: "1" (true).
-    cout << Algorithms::shortestPath(g, 0, 4) << endl; // Should print: 0->2->3->4.
+    cout << Algorithms::shortestPath(g, 0, 4) << endl; // Should print: 0->1->2->3->4.
     cout << Algorithms::isContainsCycle(g) << endl;    // Should print: "0" (false).
     cout << Algorithms::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={0, 2, 4}, B={1, 3}."
     cout << endl;
