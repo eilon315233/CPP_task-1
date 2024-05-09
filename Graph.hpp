@@ -34,7 +34,6 @@ namespace ariel
 
         vector<vector<int>> getMatrix() const {return adjacencyMatrix;} // Get the adjacency matrix of the graph.(inlined)
         
-
         vector<pair<int,pair<int, int>>> getEdges() const; // Get the edges of the graph.(inlined)
 
         bool isEdge(size_t from, size_t to) { return adjacencyMatrix[from][to] != 0;} // Check if there is an edge between two vertices.(inlined)
