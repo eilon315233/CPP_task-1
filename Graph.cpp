@@ -45,8 +45,16 @@ void Graph::printGraph()
         cout << endl;
     }
 
-    // Print the number of vertices and edges in the graph.
-    cout << "Graph with " << adjacencyMatrix.size() << " vertices and " << getNumberOfEdges() << " edges." << endl;
+    // Print the number of vertices and edges in the graph and if the graph is directed.
+    if (!directed)
+    { 
+        cout << "Graph with " << adjacencyMatrix.size() << " vertices and " << getNumberOfEdges()/2 << " edges," << " is not directed." << endl;
+    }
+    else
+    {
+        cout << "Graph with " << adjacencyMatrix.size() << " vertices and " << getNumberOfEdges() << " edges," << "is directed." << endl;
+    }    
+
 }
 
 // Check if the graph is directed.
