@@ -40,6 +40,8 @@ namespace ariel
 
         vector<vector<int>> getMatrix() { return adjacencyMatrix;} // Get the adjacency matrix of the graph.(inlined)
 
+        bool hasNegativeWeight(); // Check if the graph has a negative weight.
+
     };    
 }
 
