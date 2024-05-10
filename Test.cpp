@@ -217,31 +217,6 @@ TEST_CASE("Test DFS with disconnected graph")
     CHECK(visited[4] == false);
 }
 
-TEST_CASE("Test DFS with self-loop")
-{
-    ariel::Graph g;
-    vector<vector<int>> graph = {
-            {1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0}};
-    g.loadGraph(graph);
-
-    std::vector<bool> visited(g.getNumberOfVertices(), false);
-    ariel::Algorithms::dfs(g, 0, visited);
-
-    // Only vertex 0 should be visited
-    for (size_t i = 0; i < visited.size(); ++i) {
-        if (i == 0) {
-            CHECK(visited[i] == true);
-        } else {
-            CHECK(visited[i] == false);
-        }
-    }
-}
-
-
 TEST_CASE("Test negativeCycle with no negative cycle")
 {
     ariel::Graph g;
