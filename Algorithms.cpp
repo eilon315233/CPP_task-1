@@ -283,6 +283,17 @@ bool Algorithms::isContainsCycle(Graph graph)
 // Function to detect negative cycles in the graph by using the Bellman-Ford algorithm
 string Algorithms::negativeCycle(Graph graph)
 {
+    // if the graph is empty
+    if (graph.getNumberOfEdges() == 0)
+    {
+        return "the graph does not contain a negative cycle"; // An empty graph is considered not to contain a negative cycle
+    }
+
+    //if the graph dont have a negative weight
+    if (!graph.hasNegativeWeight())
+    {
+        return "the graph does not contain a negative cycle"; // A graph without negative weights is considered not to contain a negative cycle
+    }
 
     size_t numNodes = graph.getNumberOfVertices(); // Get the number of nodes in the graph
 
