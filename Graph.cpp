@@ -22,6 +22,15 @@ void Graph::loadGraph(vector<vector<int>> adjMatrix)
         }
     }
 
+    // Check if the graph dont have a edge from a vertex to itself.
+    for (size_t i = 0; i < adjMatrix.size(); ++i) 
+    {
+        if (adjMatrix[i][i] != 0) 
+        {
+            throw std::invalid_argument("Invalid graph: The graph has an edge from a vertex to itself.");
+        }
+    }
+
     //load the graph and check if it is directed
     this->adjacencyMatrix = adjMatrix;
     this->directed = isDirected();
@@ -131,4 +140,20 @@ vector<pair<int,pair<int, int>>> Graph::getEdges() const {
         }
     }
     return edges;
+}
+
+// Check if the graph has a negative weight.
+bool Graph::hasNegativeWeight() 
+{
+    for (size_t i = 0; i < adjacencyMatrix.size(); ++i) 
+    {
+        for (size_t j = 0; j < adjacencyMatrix[i].size(); ++j) 
+        {
+            if (adjacencyMatrix[i][j] < 0) // Check if the weight of the edge is negative.
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }
