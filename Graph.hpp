@@ -41,7 +41,12 @@ namespace ariel
         vector<vector<int>> getMatrix() { return adjacencyMatrix;} // Get the adjacency matrix of the graph.(inlined)
 
         bool hasNegativeWeight(); // Check if the graph has a negative weight.
+        
+        void setDirect(bool directed); // Set the graph to be directed or not.
 
+        int getEdge(unsigned int s, unsigned int t); // Get the weight of an edge.
+
+        unsigned int getNumV() const{ return adjacencyMatrix.size(); } // Get the number of vertices in the graph.(inlined)
     };    
 }
 
