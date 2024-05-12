@@ -157,3 +157,44 @@ bool Graph::hasNegativeWeight()
     }
     return false;
 }
+
+// Get the weight of an edge.
+int Graph::getEdge(unsigned int s, unsigned int t)
+{   
+        // Check if the node index is out of range.
+        if (s<0 && s>=getNumV() && t < 0 && t>=getNumV())
+        {
+            return -1;
+        }
+        return adjacencyMatrix[s][t]; 
+}
+
+// Set the graph to be directed or not.
+void Graph::setDirect(bool directed)
+    {
+        directed = directed;
+        for (size_t i = 0; i < adjacencyMatrix.size(); i++)
+        {
+            for (size_t j = i; j < adjacencyMatrix[i].size(); j++)
+            {
+                if (!directed) // if not directed need to make the matrix symmetric
+                {
+                    if (adjacencyMatrix[i][j] != adjacencyMatrix[j][i])
+                    {
+                        if (adjacencyMatrix[i][j] == 0)
+                        {
+                            adjacencyMatrix[i][j] = adjacencyMatrix[j][i];
+                        }
+                        else if (adjacencyMatrix[j][i] == 0)
+                        {
+                            adjacencyMatrix[j][i] = adjacencyMatrix[i][j];
+                        }
+                        else
+                        {
+                            throw invalid_argument("Invalid graph: The graph is not symmetric.");
+                        }
+                    }
+                }
+            }
+        }
+    }
