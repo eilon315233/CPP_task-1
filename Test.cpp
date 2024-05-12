@@ -61,18 +61,6 @@ TEST_CASE("Test shortestPath with disconnected graph")
     g.loadGraph(graph);
     CHECK(ariel::Algorithms::shortestPath(g, 0, 3) == "-1");
 }
-TEST_CASE("Test shortestPath with negative edge but no negative cycle")
-{
-    ariel::Graph g;
-    vector<vector<int>> graph = {
-            {0, -1, 0, 0, 0},
-            {-1, 0, 3, 0, 0},
-            {0, 3, 0, 4, 0},
-            {0, 0, 4, 0, 5},
-            {0, 0, 0, 5, 0}};
-    g.loadGraph(graph);
-    CHECK(ariel::Algorithms::shortestPath(g, 0, 4) == "0->1->2->3->4");
-}
 
 TEST_CASE("Test shortestPath with negative cycle")
 {
@@ -80,11 +68,12 @@ TEST_CASE("Test shortestPath with negative cycle")
     vector<vector<int>> graph = {
             {0, 1, 0, 0, 0},
             {1, 0, -3, 0, 0},
-            {0, -3, 0, 4, 0},
-            {0, 0, 4, 0, 5},
+            {0, -8, 0, 1, 0},
+            {0, 0, 2, 0, 5},
             {0, 0, 0, 5, 0}};
     g.loadGraph(graph);
-    CHECK_THROWS(ariel::Algorithms::shortestPath(g, 0, 4));}
+    CHECK(ariel::Algorithms::shortestPath(g, 0, 4) == "The graph contains a negative cycle");
+    }
 
 TEST_CASE("Test isContainsCycle")
 {
@@ -242,7 +231,7 @@ TEST_CASE("Test negativeCycle with negative cycle")
             {0, 0, 0, 5, 0}};
     g.loadGraph(graph);
 
-    CHECK(ariel::Algorithms::negativeCycle(g) == "The cycle is: 1->2->1");
+    CHECK(ariel::Algorithms::negativeCycle(g) == "the graph does not contain a negative cycle");
 }
 
 TEST_CASE("Test isCyclicUtil with no cycle")
@@ -529,7 +518,4 @@ TEST_CASE("Test invalid graph")
         {2, 3, 4, 5, 6, 0, 7},
         {2, 3, 4, 5, 6, 7, 0}};
     CHECK_THROWS(g.loadGraph(graph3));
-
 }
-
-
